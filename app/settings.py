@@ -38,8 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drf_yasg',
+    'bank',
+    'client',
+    'rest_framework',
     
 ]
+
+AUTH_USER_MODEL = 'client.ClientUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
