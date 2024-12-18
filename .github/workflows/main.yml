@@ -21,7 +21,7 @@ jobs:
           python -m venv venv
           . venv/bin/activate
           pip install --upgrade pip
-          pip install -r requiremtes.txt
+          pip install -r requirementes.txt
 
       - name: Executando Testes
         run: |
