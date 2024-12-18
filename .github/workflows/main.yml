@@ -9,13 +9,23 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checando o código
+      # Etapa 1: Fazer checkout do código
+      - name: Checkout do código
         uses: actions/checkout@v3
 
+      # Etapa 2: Configurar Python
       - name: Set up Python 3.12
         uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
 
+      # Etapa 3: Configurar Git Safe Directory (para evitar erros)
+      - name: Configurar Git Safe Directory
+        run: git config --global --add safe.directory /home/runner/work/rinha_de_backend/rinha_de_backend
+
+      # Etapa 4: Instalar dependências
       - name: Instalar dependências
         run: |
           python -m venv venv
@@ -23,7 +33,15 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Etapa 5: Executar os testes
       - name: Executando Testes
         run: |
           . venv/bin/activate
           python manage.py test
+
+      # Etapa 6: Limpar configurações do Git (opcional, mas recomendável)
+      - name: Limpar configurações do Git
+        run: |
+          git config --local --unset-all core.sshCommand || true
+          git config --local --unset-all http.https://github.com/.extraheader || true
+
